@@ -64,7 +64,7 @@ void stack<T>::push(T const &obj) {
 
 template <typename T>
 T stack<T>::pop() {
-	if (array_[count_ - 1] == 0) {
+	if ( count_ == 0) {
 		throw "nooooo!";
 	}
 	else {
@@ -101,4 +101,5 @@ stack<T>& stack<T>::operator=(stack<T> const & obj){
 		swap(obj.array_, array_);
 		return *this;
 	}
+else return *this;
 }
