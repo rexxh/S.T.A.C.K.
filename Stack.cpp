@@ -94,12 +94,9 @@ stack<T>::stack(const stack<T>& obj) : array_size_(obj.array_size_), count_(obj.
 }
 
 template<typename T>
-stack<T>& stack<T>::operator=(stack<T> const & obj){
-	if (this != &obj){
+stack<T>& stack<T>::operator=(stack<T> obj){
 		swap(obj.array_size_, array_size_);
 		swap(obj.count_, count_);
 		swap(obj.array_, array_);
 		return *this;
-	}
-else return *this;
 }
