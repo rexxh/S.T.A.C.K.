@@ -5,12 +5,12 @@
 SCENARIO("Stack init ", "[init]") {
 	stack<int> s;
 	REQUIRE(s.count() == 0);
-	REQUIRE(s.arraysize() == INIT_SIZE);		
+	REQUIRE(s.array_size() == INIT_SIZE);		
 }
 
 SCENARIO("Copy constr", "[copy]") {
 	stack<int> s1;
-	for (unsigned int i = 0; i < 15, i++)
+	for (unsigned int i = 0; i < 15; i++)
 	{
 		s1.push(i);
 	}
@@ -39,10 +39,8 @@ SCENARIO("Push", "[push]") {
 }
 
 SCENARIO("Pop", "[pop]") {
-	stack<string> s1;
+	stack<double> s1;
 	s1.push(105.2);
-	s1.push("Hello");
-	REQUIRE(s1.pop() == "Hello");
 	REQUIRE(s1.pop() == 105.2);
 }
 
