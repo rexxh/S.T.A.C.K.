@@ -5,6 +5,7 @@
 #define INIT_SIZE 1 
 #define MULTIPLIER 2  
 
+using namespace std;
 
 template <typename T>
 class stack
