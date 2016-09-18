@@ -10,19 +10,22 @@
 template <typename T>
 class stack
 {
-	T*array_; 
+	T*array_;
 	size_t array_size_;
-	size_t count_; 
+	size_t count_;
 public:
 	stack();
 	stack(stack<T> const & obj);
 	size_t count() const;
 	size_t array_size() const;
 	void push(T const &);
-	stack<T>& operator=(const stack<T>&);
+	stack<T>& operator=(stack<T>);
 	T pop();
 	~stack();
+	friend T* New_n_copy(size_t ar_size, size_t count_, T* ar_);
+	auto operator==(const stack & obj) const -> bool;
 };
+
 
 template <typename T>
 stack<T>::stack() : array_size_(INIT_SIZE), count_(0) {
@@ -99,4 +102,19 @@ stack<T>& stack<T>::operator=(stack<T> obj){
 		swap(obj.count_, count_);
 		swap(obj.array_, array_);
 		return *this;
+}
+
+template <typename T>
+auto stack<T>::operator==(const stack & object) const -> bool
+{
+	if (count_ != object.count_) {
+		throw "Dimension()";
+	}
+	for (unsigned int i = 0; i < count_; ++i) {
+		if (array_[i] != object.array_[i]) 
+		{
+				return false;
+		}
+	}
+	return true;
 }
