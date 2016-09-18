@@ -39,10 +39,9 @@ SCENARIO("Push", "[push]") {
 }
 
 SCENARIO("Pop", "[pop]") {
-	stack<double> s1;
-	s1.push(105.2);
-	double x = s1.pop();
-	REQUIRE(x == 105.2);
+	stack<int> s1;
+	s1.push(-105);
+	REQUIRE(s1.pop() == -105);
 }
 
 SCENARIO("assignment", "[assignment]") {
