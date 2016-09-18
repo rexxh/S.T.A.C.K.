@@ -52,5 +52,7 @@ SCENARIO("assignment", "[assignment]") {
 SCENARIO("fPop", "[fpop]") {
 	stack<int> s1;
 	s1.push(10);
-	REQUIRE(s1.pop() == 10);
+	s1.push(20);
+	s1.push(30);
+	REQUIRE(s1.pop() == 30);
 }
