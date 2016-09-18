@@ -38,12 +38,6 @@ SCENARIO("Push", "[push]") {
 	REQUIRE(s1.count() == 10);
 }
 
-SCENARIO("Pop", "[pop]") {
-	stack<int> s1;
-	s1.push(-105);
-	REQUIRE(s1.pop() == -105);
-}
-
 SCENARIO("assignment", "[assignment]") {
 	stack<int> s1;
 	for (unsigned int i = 0; i < 4; i++)
@@ -55,3 +49,8 @@ SCENARIO("assignment", "[assignment]") {
 	REQUIRE(s1 == s2);
 }
 
+SCENARIO("fPop", "[fpop]") {
+	stack<int> s1;
+	s1.push(10);
+	REQUIRE(s1.pop() == 10);
+}
