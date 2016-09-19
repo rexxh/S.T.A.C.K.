@@ -8,6 +8,12 @@
 using namespace std;
 
 template <typename T>
+class stack;
+
+template <typename T>
+T* New_n_copy(size_t ar_size, size_t count_, T* ar_);
+
+template <typename T>
 class stack
 {
 	T*array_;
