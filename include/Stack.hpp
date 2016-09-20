@@ -10,6 +10,9 @@ template <typename T>
 class stack;
 
 template <typename T>
+T* New_n_copy(size_t ar_size, size_t count_, T* ar_);
+
+template <typename T>
 class stack
 {
 	T*array_;
@@ -25,7 +28,6 @@ public:
 	T pop();
 	~stack();
 	auto operator==(const stack & obj) const -> bool;
-	template <typename T>
 	friend T* New_n_copy(size_t ar_size, size_t count_, T* ar_);
 };
 
