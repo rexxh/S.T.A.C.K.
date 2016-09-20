@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 
-#define INIT_SIZE 1 
 #define MULTIPLIER 2  
 
 using namespace std;
@@ -34,9 +33,7 @@ public:
 
 
 template <typename T>
-stack<T>::stack() : array_size_(INIT_SIZE), count_(0) {
-	std::cout << "constructor!"; array_ = new T[INIT_SIZE];
-}
+stack<T>::stack() : array_size_(0), count_(0) {}
 
 template <typename T>
 size_t stack<T>::count() const {
@@ -71,16 +68,7 @@ template <typename T>
 T stack<T>::pop() {
 	if ( count_ > 0) 
 	{
-		T top = array_[count_ - 1];
-		--count_;
-		if ((array_size_ / count_) > MULTIPLIER)
-		{
-			array_size_ /= 1.5;
-			T* temp = New_n_copy(array_size_, count_, array_);
-			delete[] array_; std::cout << "---- Memory! ----";
-			array_ = temp;
-		}
-		return top;
+		return array_[--count_];
 	}
 	throw "nooooo!";
 }
