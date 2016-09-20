@@ -5,7 +5,7 @@
 SCENARIO("Stack init ", "[init]") {
 	stack<int> s;
 	REQUIRE(s.count() == 0);
-	REQUIRE(s.array_size() == INIT_SIZE);		
+	REQUIRE(s.array_size() == 0);		
 }
 
 SCENARIO("Copy constr", "[copy]") {
@@ -25,7 +25,7 @@ SCENARIO("Count", "[count]") {
 
 SCENARIO("Array size", "[array_size]") {
 	stack<int> s1;
-	REQUIRE(s1.array_size() == INIT_SIZE);
+	REQUIRE(s1.array_size() == 0);
 }
 	
 
