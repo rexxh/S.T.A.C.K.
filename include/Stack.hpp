@@ -10,9 +10,6 @@ template <typename T>
 class stack;
 
 template <typename T>
-T* New_n_copy(size_t ar_size, size_t count_, T* ar_);
-
-template <typename T>
 class stack
 {
 	T*array_;
@@ -27,8 +24,9 @@ public:
 	stack<T>& operator=(stack<T>);
 	T pop();
 	~stack();
-	friend T* New_n_copy(size_t ar_size, size_t count_, T* ar_);
 	auto operator==(const stack & obj) const -> bool;
+	template <typename T>
+	friend T* New_n_copy(size_t ar_size, size_t count_, T* ar_);
 };
 
 
@@ -52,13 +50,20 @@ size_t stack<T>::array_size() const {
 
 template <typename T>
 void stack<T>::push(T const &obj) {
-	if (count_ +1 > array_size_)
+	if (count_ + 1 > array_size_)
 	{
-		array_size_ *= MULTIPLIER;
-		T * temp = New_n_copy(array_size_, count_, array_);
-		delete[] array_;
-		array_ = temp;
-		std::cout << "\n ++++ Memory! ++++";
+		if (array_size_ == 0) 
+		{ 
+			++array_size_; 
+			array_ = new T[array_size_];
+		}
+		else {
+			array_size_ *= MULTIPLIER;
+			T * temp = New_n_copy(array_size_, count_, array_);
+			delete[] array_;
+			array_ = temp;
+			std::cout << "\n ++++ Memory! ++++";
+		}
 	}
 	array_[count_] = obj;
 	count_++;
