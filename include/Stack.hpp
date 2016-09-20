@@ -9,8 +9,12 @@ using namespace std;
 template <typename T>
 class stack;
 
-template <typename T>
-T* New_n_copy(size_t ar_size, size_t count_, T* ar_);
+template<typename T>
+T* New_n_copy(size_t ar_size, size_t count_, T* ar_){
+	T*temp = new T[ar_size];
+	std::copy(ar_, ar_ + count_, temp);
+	return temp;
+}
 
 template <typename T>
 class stack
@@ -28,7 +32,7 @@ public:
 	T pop();
 	~stack();
 	auto operator==(const stack & obj) const -> bool;
-	friend T* New_n_copy(size_t ar_size, size_t count_, T* ar_);
+	friend T* New_n_copy <>(size_t ar_size, size_t count_, T* ar_);
 };
 
 
@@ -106,12 +110,4 @@ auto stack<T>::operator==(const stack & object) const -> bool
 		}
 	}
 	return true;
-}
-
-
-template<typename T>
-T* New_n_copy(size_t ar_size, size_t count_, T* ar_){ 
-	T*temp = new T[ar_size];
-	std::copy(ar_, ar_+count_, temp);
-	return temp;
 }
