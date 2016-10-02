@@ -49,10 +49,24 @@ SCENARIO("assignment", "[assignment]") {
 	REQUIRE(s1 == s2);
 }
 
-SCENARIO("fPop", "[fpop]") {
+SCENARIO("Pop", "[pop]") {
 	stack<int> s1;
 	s1.push(10);
 	s1.push(20);
 	s1.push(30);
-	REQUIRE(s1.pop() == 30);
+	s1.pop();
+	REQUIRE( s1.count() == 2);
+}
+
+SCENARIO("Top", "[top]") {
+	stack<int> s1;
+	s1.push(10);
+	s1.push(20);
+	s1.push(30);
+	REQUIRE( s1.top() == 30);
+}
+
+SCENARIO("Empty", "[empty]") {
+	stack<int> s1;
+	REQUIRE( s1.empty() );
 }
