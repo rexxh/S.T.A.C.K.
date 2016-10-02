@@ -23,16 +23,16 @@ class stack
 	size_t array_size_;
 	size_t count_;
 public:
-	stack();
-	stack(stack<T> const & obj);
-	size_t count() const;
-	size_t array_size() const;
-	void push(T const &);
-	stack<T>& operator=(stack<T>);
-	T pop();
-	~stack();
-	auto operator==(const stack & obj) const -> bool;
+	stack(); /* noexcept */
+	stack(stack<T> const & obj); /* strong */
+	size_t count() const; /* noexcept */
+	size_t array_size() const; /* noexcept */
+	void push(T const &); /* strong */
+	T pop(); /* strong */
+	stack<T>& operator=(stack<T>); /* strong */
+	auto operator==(const stack & obj) const -> bool; /* strong */
 	friend T* New_n_copy <>(size_t ar_size, size_t count_, T* ar_);
+	~stack(); /* noexcept */
 };
 
 
@@ -68,7 +68,6 @@ void stack<T>::push(T const &obj) {
 			T * temp = New_n_copy(array_size_, count_, array_);
 			delete[] array_;
 			array_ = temp;
-			std::cout << "\n ++++ Memory! ++++";
 		}
 	}
 	array_[count_] = obj;
@@ -81,7 +80,7 @@ T stack<T>::pop() {
 	{
 		return array_[--count_];
 	}
-	throw "nooooo!";
+	throw ("The stack is empty");
 }
 
 template <typename T>
@@ -101,7 +100,7 @@ template <typename T>
 auto stack<T>::operator==(const stack & object) const -> bool
 {
 	if (count_ != object.count_) {
-		throw "Dimension()";
+		throw ("Wrong dimension");
 	}
 	for (unsigned int i = 0; i < count_; ++i) {
 		if (array_[i] != object.array_[i]) 
