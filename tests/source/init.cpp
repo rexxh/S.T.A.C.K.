@@ -69,4 +69,4 @@ SCENARIO("Top", "[top]") {
 SCENARIO("Empty", "[empty]") {
 	stack<int> s1;
 	REQUIRE( s1.empty() );
-}
+} 
