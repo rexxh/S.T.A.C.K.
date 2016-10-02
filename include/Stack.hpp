@@ -30,6 +30,7 @@ public:
 	void push(T const &); /* strong */
 	void pop(); /* strong */
 	const T& top(); /* strong */
+	bool empty(); /* noexcept */
 	stack<T>& operator=(stack<T>); /* strong */
 	auto operator==(const stack & obj) const -> bool; /* strong */
 	friend T* New_n_copy <>(size_t ar_size, size_t count_, T* ar_);
@@ -77,7 +78,7 @@ void stack<T>::push(T const &obj) {
 
 template <typename T>
 void stack<T>::pop() {
-	if (count_ <=0)
+	if (empty())
 	{
 		throw("the stack is empty");
 	}
@@ -86,7 +87,7 @@ void stack<T>::pop() {
 
 template <typename T>
 const T& stack<T>::top() {
-	if (count_ <=0)
+	if (empty())
 	{
 		throw("the stack is empty");
 	}
@@ -119,4 +120,13 @@ auto stack<T>::operator==(const stack & object) const -> bool
 		}
 	}
 	return true;
+}
+
+template <typename T>
+bool stack<T>::empty() {
+	if (!count_)
+	{
+		return true;
+	}
+		return false;
 }
