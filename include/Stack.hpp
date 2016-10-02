@@ -28,7 +28,8 @@ public:
 	size_t count() const; /* noexcept */
 	size_t array_size() const; /* noexcept */
 	void push(T const &); /* strong */
-	T pop(); /* strong */
+	void pop(); /* strong */
+	const T& top(); /* strong */
 	stack<T>& operator=(stack<T>); /* strong */
 	auto operator==(const stack & obj) const -> bool; /* strong */
 	friend T* New_n_copy <>(size_t ar_size, size_t count_, T* ar_);
@@ -75,12 +76,21 @@ void stack<T>::push(T const &obj) {
 }
 
 template <typename T>
-T stack<T>::pop() {
-	if ( count_ > 0) 
+void stack<T>::pop() {
+	if (count_ <=0)
 	{
-		return array_[--count_];
+		throw("the stack is empty");
 	}
-	throw ("The stack is empty");
+	--count_;
+}
+
+template <typename T>
+const T& stack<T>::top() {
+	if (count_ <=0)
+	{
+		throw("the stack is empty");
+	}
+	return array_[count_-1];
 }
 
 template <typename T>
