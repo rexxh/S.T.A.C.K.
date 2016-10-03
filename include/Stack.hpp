@@ -107,7 +107,7 @@ stack<T>& stack<T>::operator=(const stack<T> &tmp) {
     if (this == &tmp) {}
     count_ = tmp.count_;
     array_size_ = tmp.array_size_;
-    array_ = New_n_copy(tmp.array_, count_, array_size_);
+    array_ = New_n_copy(array_size_, count_, tmp.array_);
     return *this;
 }
 
