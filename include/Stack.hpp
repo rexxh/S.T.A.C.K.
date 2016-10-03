@@ -1,3 +1,6 @@
+#pragma once
+#ifndef Stack_hpp
+#define Stack_hpp
 #include <stdlib.h>
 #include <iostream>
 #include <string>
@@ -23,21 +26,23 @@ class stack
 	size_t array_size_;
 	size_t count_;
 public:
-	stack();
-	stack(stack<T> const & obj);
-	size_t count() const;
-	size_t array_size() const;
-	void push(T const &);
-	stack<T>& operator=(stack<T>);
-	T pop();
-	~stack();
-	auto operator==(const stack & obj) const -> bool;
+	stack(); /* noexcept */
+	stack(stack<T> const & obj); /* strong */
+	size_t count() const; /* noexcept */
+	size_t array_size() const; /* noexcept */
+	void push(T const &); /* strong */
+	void pop(); /* strong */
+	const T& top(); /* strong */
+	bool empty(); /* noexcept */
+	stack<T>& operator=(const stack<T> &); /* strong */
+	auto operator==(const stack & obj) const -> bool; /* strong */
 	friend T* New_n_copy <>(size_t ar_size, size_t count_, T* ar_);
+	~stack(); /* noexcept */
 };
 
 
 template <typename T>
-stack<T>::stack() : array_size_(0), count_(0) {}
+stack<T>::stack() : array_size_(0), count_(0), array_(nullptr) {}
 
 template <typename T>
 size_t stack<T>::count() const {
@@ -68,7 +73,6 @@ void stack<T>::push(T const &obj) {
 			T * temp = New_n_copy(array_size_, count_, array_);
 			delete[] array_;
 			array_ = temp;
-			std::cout << "\n ++++ Memory! ++++";
 		}
 	}
 	array_[count_] = obj;
@@ -76,12 +80,21 @@ void stack<T>::push(T const &obj) {
 }
 
 template <typename T>
-T stack<T>::pop() {
-	if ( count_ > 0) 
+void stack<T>::pop() {
+	if (empty())
 	{
-		return array_[--count_];
+		throw("the stack is empty");
 	}
-	throw "nooooo!";
+	--count_;
+}
+
+template <typename T>
+const T& stack<T>::top() {
+	if (empty())
+	{
+		throw("the stack is empty");
+	}
+	return array_[count_-1];
 }
 
 template <typename T>
@@ -89,19 +102,20 @@ stack<T>::stack(const stack<T>& obj) : array_size_(obj.array_size_), count_(obj.
 	array_ = New_n_copy(array_size_, count_, obj.array_);
 }
 
-template<typename T>
-stack<T>& stack<T>::operator=(stack<T> obj){
-		swap(obj.array_size_, array_size_);
-		swap(obj.count_, count_);
-		swap(obj.array_, array_);
-		return *this;
+template <typename T>
+stack<T>& stack<T>::operator=(const stack<T> &tmp) {
+    if (this == &tmp) {}
+    count_ = tmp.count_;
+    array_size_ = tmp.array_size_;
+    array_ = New_n_copy(array_size_, count_, tmp.array_);
+    return *this;
 }
 
 template <typename T>
 auto stack<T>::operator==(const stack & object) const -> bool
 {
 	if (count_ != object.count_) {
-		throw "Dimension()";
+		throw ("Wrong dimension");
 	}
 	for (unsigned int i = 0; i < count_; ++i) {
 		if (array_[i] != object.array_[i]) 
@@ -111,3 +125,13 @@ auto stack<T>::operator==(const stack & object) const -> bool
 	}
 	return true;
 }
+
+template <typename T>
+bool stack<T>::empty() {
+	if (!count_)
+	{
+		return true;
+	}
+		return false;
+}
+#endif
