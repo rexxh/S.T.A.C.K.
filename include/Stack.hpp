@@ -4,10 +4,6 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
-
-#include <stdlib.h>
-#include <iostream>
-#include <string>
  
 #define MULTIPLIER 2  
 
@@ -28,7 +24,6 @@ public:
 	stack<T>& operator=(const stack<T> &); 
 	T pop();
 	~stack();
-	T* New_n_copy(size_t ar_size, size_t count_, T* ar_);
 	auto operator==(const stack & obj) const -> bool;
 };
 
