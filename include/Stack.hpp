@@ -13,7 +13,12 @@ using namespace std;
 template <typename T>
 class stack;
 
-
+template<typename T>
+T* New_n_copy(size_t ar_size, size_t count_, T* ar_){
+	T*temp = new T[ar_size];
+	std::copy(ar_, ar_ + count_, temp);
+	return temp;
+}
 
 template <typename T>
 class stack
@@ -29,17 +34,12 @@ public:
 	void push(T const &); /* strong */
 	void pop(); /* strong */
 	const T& top(); /* strong */
+	bool empty(); /* noexcept */
 	stack<T>& operator=(const stack<T> &); /* strong */
 	auto operator==(const stack & obj) const -> bool; /* strong */
 	~stack(); /* noexcept */
 };
 
-template<typename T>
-T* New_n_copy(size_t ar_size, size_t count_, T* ar_){
-	T*temp = new T[ar_size];
-	std::copy(ar_, ar_ + count_, temp);
-	return temp;
-}
 
 template <typename T>
 stack<T>::stack() : array_size_(0), count_(0), array_(nullptr) {}
@@ -81,7 +81,7 @@ void stack<T>::push(T const &obj) {
 
 template <typename T>
 void stack<T>::pop() {
-	if (count_ <= 0)
+	if (empty())
 	{
 		throw("the stack is empty");
 	}
@@ -90,7 +90,7 @@ void stack<T>::pop() {
 
 template <typename T>
 const T& stack<T>::top() {
-	if (count_ <= 0)
+	if (empty())
 	{
 		throw("the stack is empty");
 	}
@@ -126,4 +126,12 @@ auto stack<T>::operator==(const stack & object) const -> bool
 	return true;
 }
 
+template <typename T>
+bool stack<T>::empty() {
+	if (!count_)
+	{
+		return true;
+	}
+		return false;
+}
 #endif
