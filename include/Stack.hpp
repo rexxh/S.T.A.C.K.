@@ -36,7 +36,6 @@ public:
 	bool empty(); /* noexcept */
 	stack<T>& operator=(const stack<T> &); /* strong */
 	auto operator==(const stack & obj) const -> bool; /* strong */
-	friend T* New_n_copy <>(size_t ar_size, size_t count_, T* ar_);
 	~stack(); /* noexcept */
 };
 
@@ -51,7 +50,7 @@ size_t stack<T>::count() const {
 
 template <typename T>
 stack<T>::~stack(){
-	std::cout << "\ndestructor!"; delete[] array_;
+	delete[] array_;
 }
 
 template <typename T>
