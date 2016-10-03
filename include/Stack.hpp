@@ -17,15 +17,15 @@ class stack
 	size_t array_size_;
 	size_t count_;
 public:
-	stack();
-	stack(stack<T> const & obj);
-	size_t count() const;
-	size_t array_size() const;
-	void push(T const &);
-	stack<T>& operator=(const stack<T> &); 
-	T pop();
-	~stack();
-	auto operator==(const stack & obj) const -> bool;
+	stack(); /* noexcept */
+	stack(stack<T> const & obj); /* strong */
+	size_t count() const; /* noexcept */
+	size_t array_size() const; /* noexcept */
+	void push(T const &); /* strong */
+	stack<T>& operator=(const stack<T> &); /* strong */
+	T pop(); /* basic */
+	~stack(); /* noexcept */
+	auto operator==(const stack & obj) const -> bool; /* strong */
 };
 
 
