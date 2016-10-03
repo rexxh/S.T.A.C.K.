@@ -34,7 +34,7 @@ public:
 	void pop(); /* strong */
 	const T& top(); /* strong */
 	bool empty(); /* noexcept */
-	stack<T>& operator=(const stack<T>); /* strong */
+	stack<T>& operator=(const stack<T> &); /* strong */
 	auto operator==(const stack & obj) const -> bool; /* strong */
 	friend T* New_n_copy <>(size_t ar_size, size_t count_, T* ar_);
 	~stack(); /* noexcept */
