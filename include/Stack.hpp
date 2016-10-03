@@ -1,23 +1,14 @@
+
 #pragma once
 #ifndef Stack_hpp
 #define Stack_hpp
 #include <stdlib.h>
 #include <iostream>
 #include <string>
-
+ 
 #define MULTIPLIER 2  
 
 using namespace std;
-
-template <typename T>
-class stack;
-
-template<typename T>
-T* New_n_copy(size_t ar_size, size_t count_, T* ar_){
-	T*temp = new T[ar_size];
-	std::copy(ar_, ar_ + count_, temp);
-	return temp;
-}
 
 template <typename T>
 class stack
@@ -26,22 +17,21 @@ class stack
 	size_t array_size_;
 	size_t count_;
 public:
-	stack(); /* noexcept */
-	stack(stack<T> const & obj); /* strong */
-	size_t count() const; /* noexcept */
-	size_t array_size() const; /* noexcept */
-	void push(T const &); /* strong */
-	void pop(); /* strong */
-	const T& top(); /* strong */
-	bool empty(); /* noexcept */
-	stack<T>& operator=(const stack<T> &); /* strong */
-	auto operator==(const stack & obj) const -> bool; /* strong */
-	~stack(); /* noexcept */
+	stack();
+	stack(stack<T> const & obj);
+	size_t count() const;
+	size_t array_size() const;
+	void push(T const &);
+	stack<T>& operator=(const stack<T> &); 
+	T pop();
+	~stack();
+	auto operator==(const stack & obj) const -> bool;
 };
 
 
 template <typename T>
-stack<T>::stack() : array_size_(0), count_(0), array_(nullptr) {}
+stack<T>::stack() : array_size_(0), count_(0), array_(nullptr){}
+	
 
 template <typename T>
 size_t stack<T>::count() const {
@@ -60,40 +50,24 @@ size_t stack<T>::array_size() const {
 
 template <typename T>
 void stack<T>::push(T const &obj) {
-	if (count_ + 1 > array_size_)
+	if (count_ +1 > array_size_)
 	{
-		if (array_size_ == 0) 
-		{ 
-			++array_size_; 
-			array_ = new T[array_size_];
-		}
-		else {
-			array_size_ *= MULTIPLIER;
-			T * temp = New_n_copy(array_size_, count_, array_);
-			delete[] array_;
-			array_ = temp;
-		}
+		array_size_ *= MULTIPLIER;
+		T * temp = New_n_copy(array_size_, count_, array_);
+		delete[] array_;
+		array_ = temp;
 	}
 	array_[count_] = obj;
 	count_++;
 }
 
 template <typename T>
-void stack<T>::pop() {
-	if (empty())
+T stack<T>::pop() {
+	if ( count_ > 0) 
 	{
-		throw("the stack is empty");
+		return array_[--count];
 	}
-	--count_;
-}
-
-template <typename T>
-const T& stack<T>::top() {
-	if (empty())
-	{
-		throw("the stack is empty");
-	}
-	return array_[count_-1];
+	throw ("the stack is empty!");
 }
 
 template <typename T>
@@ -114,7 +88,7 @@ template <typename T>
 auto stack<T>::operator==(const stack & object) const -> bool
 {
 	if (count_ != object.count_) {
-		throw ("Wrong dimension");
+		throw ("Wrong Dimension");
 	}
 	for (unsigned int i = 0; i < count_; ++i) {
 		if (array_[i] != object.array_[i]) 
@@ -125,12 +99,10 @@ auto stack<T>::operator==(const stack & object) const -> bool
 	return true;
 }
 
-template <typename T>
-bool stack<T>::empty() {
-	if (!count_)
-	{
-		return true;
-	}
-		return false;
+
+template<typename T>
+T* New_n_copy(size_t ar_size, size_t count_, T* ar_){ 
+	T*temp = new T[ar_size];
+	std::copy(ar_, ar_+count_, temp);
+	return temp;
 }
-#endif
