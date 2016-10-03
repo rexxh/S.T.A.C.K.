@@ -1,3 +1,6 @@
+#pragma once
+#ifndef Stack_hpp
+#define Stack_hpp
 #include <stdlib.h>
 #include <iostream>
 #include <string>
@@ -130,3 +133,4 @@ bool stack<T>::empty() {
 	}
 		return false;
 }
+#endif
