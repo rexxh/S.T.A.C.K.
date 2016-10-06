@@ -39,6 +39,7 @@ public:
 	const T& top() /* strong */
 	stack<T>& operator=(const stack<T> &); /* strong */
 	auto operator==(const stack & obj) const -> bool; /* strong */
+	bool empty() const; /* noexcept */
 	~stack(); /* noexcept */
 };
 
@@ -83,7 +84,7 @@ void stack<T>::push(T const &obj) {
 
 template <typename T>
 void stack<T>::pop() {
-	if (count_ == 0)
+	if (empty())
 	{
 		throw("the stack is empty");
 	}
@@ -92,7 +93,7 @@ void stack<T>::pop() {
 
 template <typename T>
 const T& stack<T>::top() {
-	if (count == 0)
+	if (empty())
 	{
 		throw("the stack is empty");
 	}
@@ -107,7 +108,7 @@ stack<T>::stack(const stack<T>& obj) : array_size_(obj.array_size_), count_(obj.
 template <typename T>
 stack<T>& stack<T>::operator=(const stack<T> &tmp) {
     if (this == &tmp) {
-	    if (count_ != 0)
+	    if (!empty())
 	    {
 		    delete [] array_;
 	    }
@@ -133,4 +134,12 @@ auto stack<T>::operator==(const stack & object) const -> bool
 	return true;
 }
 
+template <typename T>
+bool stack<T>::empty() const{
+	if (!count_)
+	{
+		return true;
+	}
+		return false;
+}
 #endif
