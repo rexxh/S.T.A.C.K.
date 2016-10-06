@@ -1,4 +1,6 @@
 #pragma once
+#ifndef Stack_hpp
+#define Stack_hpp
 #include <stdlib.h>
 #include <iostream>
 #include <string>
@@ -6,6 +8,20 @@
 #define MULTIPLIER 2  
 
 using namespace std;
+
+template<typename T>
+T* New_n_copy(size_t ar_size, size_t count_, T* ar_){ /* strong */
+	T*temp = new T[ar_size];
+	try {
+	std::copy(ar_, ar_+count_, temp);
+	}
+	catch (...) {
+		delete [] temp;
+		throw;
+	}
+	return temp;
+}
+
 
 template <typename T>
 class stack
@@ -101,16 +117,4 @@ auto stack<T>::operator==(const stack & object) const -> bool
 	return true;
 }
 
-
-template<typename T>
-T* New_n_copy(size_t ar_size, size_t count_, T* ar_){ /* strong */
-	T*temp = new T[ar_size];
-	try {
-	std::copy(ar_, ar_+count_, temp);
-	}
-	catch (...) {
-		delete [] temp;
-		throw;
-	}
-	return temp;
-}
+#endif
