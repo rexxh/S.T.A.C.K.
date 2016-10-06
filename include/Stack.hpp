@@ -9,9 +9,6 @@
 
 using namespace std;
 
-template <typename T>
-class stack;
-
 template<typename T>
 T* New_n_copy(size_t ar_size, size_t count_, T* ar_){ /* strong */
 	T*temp = new T[ar_size];
@@ -38,12 +35,10 @@ public:
 	size_t count() const; /* noexcept */
 	size_t array_size() const; /* noexcept */
 	void push(T const &); /* strong */
-	void pop(); /* strong */
-	const T& top(); /* strong */
 	stack<T>& operator=(const stack<T> &); /* strong */
-	auto operator==(const stack & obj) const -> bool; /* strong */
-	bool empty(); /* noexcept */
+	T pop(); /* basic */
 	~stack(); /* noexcept */
+	auto operator==(const stack & obj) const -> bool; /* strong */
 };
 
 
@@ -70,34 +65,29 @@ template <typename T>
 void stack<T>::push(T const &obj) {
 	if (count_ +1 > array_size_)
 	{
+		if (array_size_ == 0) 
+-		{ 
+-			++array_size_; 
+-			array_ = new T[array_size_];
+-		}
+-		else {
 		array_size_ *= MULTIPLIER;
 		T * temp = New_n_copy(array_size_, count_, array_);
 		delete[] array_;
-		array_ = temp;
-	}
+		array_ = temp; }
+		
 	array_[count_] = obj;
 	count_++;
 }
 
 template <typename T>
-void stack<T>::pop() {
-	if ( empty()) 
+T stack<T>::pop() {
+	if ( count_ > 0) 
 	{
-		throw ("the stack is empty!");
+		return array_[--count_];
 	}
-	--count_;
-	}
-	
-template <typename T>
-const T& stack<T>::top() {
-	if ( empty()) 
-	{
-		throw ("the stack is empty!");
-	}
-	return array_[count_-1];
+	throw ("the stack is empty!");
 }
-
-	
 
 template <typename T>
 stack<T>::stack(const stack<T>& obj) : array_size_(obj.array_size_), count_(obj.count_){
@@ -107,7 +97,7 @@ stack<T>::stack(const stack<T>& obj) : array_size_(obj.array_size_), count_(obj.
 template <typename T>
 stack<T>& stack<T>::operator=(const stack<T> &tmp) {
     if (this == &tmp) {
-	    if (!empty())
+	    if (count_ != 0)
 	    {
 		    delete [] array_;
 	    }
@@ -133,12 +123,4 @@ auto stack<T>::operator==(const stack & object) const -> bool
 	return true;
 }
 
-template <typename T>
-bool stack<T>::empty() {
-	if (!count_)
-	{
-		return true;
-	}
-		return false;
-}
 #endif
