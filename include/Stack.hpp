@@ -108,7 +108,7 @@ stack<T>::stack(const stack<T>& obj) : array_size_(obj.array_size_), count_(obj.
 
 template <typename T>
 stack<T>& stack<T>::operator=(const stack<T> &tmp) {
-    if (this == &tmp) {
+    if (this != &tmp) {
 	    if (!empty())
 	    {
 		    delete [] array_;
