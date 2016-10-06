@@ -68,19 +68,19 @@ void stack<T>::push(T const &obj) {
 	if (count_ +1 > array_size_)
 	{
 		if (array_size_ == 0) 
--		{ 
--			++array_size_; 
--			array_ = new T[array_size_];
--		}
--		else {
-		array_size_ *= MULTIPLIER;
-		T * temp = New_n_copy(array_size_, count_, array_);
-		delete[] array_;
-		array_ = temp; }
+		{ 
+			++array_size_; 
+			array_ = new T[array_size_];
+		}
+		else {
+			array_size_ *= MULTIPLIER;
+			T * temp = New_n_copy(array_size_, count_, array_);
+			delete[] array_;
+			array_ = temp;
+		}
 	}
-	
-		array_[count_] = obj;
-		count_++;
+	array_[count_] = obj;
+	count_++;
 }
 
 template <typename T>
