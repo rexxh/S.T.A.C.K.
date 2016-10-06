@@ -16,15 +16,15 @@ class stack
 	size_t array_size_;
 	size_t count_;
 public:
-	stack();
-	stack(stack<T> const & obj);
-	size_t count() const;
-	size_t array_size() const;
-	void push(T const &);
-	stack<T>& operator=(const stack<T> &); 
-	T pop();
-	~stack();
-	auto operator==(const stack & obj) const -> bool;
+	stack(); /* noexcept */
+	stack(stack<T> const & obj); /* strong */
+	size_t count() const; /* noexcept */
+	size_t array_size() const; /* noexcept */
+	void push(T const &); /* strong */
+	stack<T>& operator=(const stack<T> &); /* strong */
+	T pop(); /* basic */
+	~stack(); /* noexcept */
+	auto operator==(const stack & obj) const -> bool; /* strong */
 };
 
 
@@ -76,10 +76,15 @@ stack<T>::stack(const stack<T>& obj) : array_size_(obj.array_size_), count_(obj.
 
 template <typename T>
 stack<T>& stack<T>::operator=(const stack<T> &tmp) {
-    if (this == &tmp) {}
+    if (this == &tmp) {
+	    if (count_ != 0)
+	    {
+		    delete [] array_;
+	    }
     count_ = tmp.count_;
     array_size_ = tmp.array_size_;
     array_ = New_n_copy(array_size_, count_, tmp.array_);
+    }
     return *this;
 }
 
@@ -100,8 +105,14 @@ auto stack<T>::operator==(const stack & object) const -> bool
 
 
 template<typename T>
-T* New_n_copy(size_t ar_size, size_t count_, T* ar_){ 
+T* New_n_copy(size_t ar_size, size_t count_, T* ar_){ /* strong */
 	T*temp = new T[ar_size];
+	try {
 	std::copy(ar_, ar_+count_, temp);
+	}
+	catch (...) {
+		delete [] array_;
+		throw;
+	}
 	return temp;
 }
