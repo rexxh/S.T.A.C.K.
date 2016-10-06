@@ -36,7 +36,7 @@ public:
 	size_t array_size() const; /* noexcept */
 	void push(T const &); /* strong */
 	void pop(); /* strong */
-	const T& top() /* strong */
+	const T& top(); /* strong */
 	stack<T>& operator=(const stack<T> &); /* strong */
 	auto operator==(const stack & obj) const -> bool; /* strong */
 	bool empty() const; /* noexcept */
@@ -78,6 +78,7 @@ void stack<T>::push(T const &obj) {
 		delete[] array_;
 		array_ = temp; }
 	}
+	
 		array_[count_] = obj;
 		count_++;
 }
