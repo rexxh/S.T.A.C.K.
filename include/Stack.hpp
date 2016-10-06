@@ -64,7 +64,7 @@ template <typename T>
 T stack<T>::pop() {
 	if ( count_ > 0) 
 	{
-		return array_[--count];
+		return array_[--count_];
 	}
 	throw ("the stack is empty!");
 }
