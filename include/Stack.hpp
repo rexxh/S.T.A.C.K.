@@ -75,9 +75,9 @@ void stack<T>::push(T const &obj) {
 		T * temp = New_n_copy(array_size_, count_, array_);
 		delete[] array_;
 		array_ = temp; }
-		
-	array_[count_] = obj;
-	count_++;
+	}
+		array_[count_] = obj;
+		count_++;
 }
 
 template <typename T>
