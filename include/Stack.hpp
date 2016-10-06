@@ -1,6 +1,4 @@
 #pragma once
-#ifndef Stack_hpp
-#define Stack_hpp
 #include <stdlib.h>
 #include <iostream>
 #include <string>
@@ -111,7 +109,7 @@ T* New_n_copy(size_t ar_size, size_t count_, T* ar_){ /* strong */
 	std::copy(ar_, ar_+count_, temp);
 	}
 	catch (...) {
-		delete [] array_;
+		delete [] temp;
 		throw;
 	}
 	return temp;
