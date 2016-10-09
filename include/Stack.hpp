@@ -107,15 +107,14 @@ stack<T>::stack(const stack<T>& obj) : array_size_(obj.array_size_), count_(obj.
 }
 
 template <typename T>
-stack<T>& stack<T>::operator=(const stack<T> &tmp) {
-    if (this != &tmp) {
-	    if (!empty())
-	    {
-		    delete [] array_;
-	    }
-    count_ = tmp.count_;
-    array_size_ = tmp.array_size_;
-    array_ = New_n_copy(array_size_, count_, tmp.array_);
+stack<T>& stack<T>::operator=(const stack<T> &obj) {
+    if (this != &obj) {
+	    T *tmp = array_;
+		array_ = New_n_copy(obj.array_size_, obj.count_, obj.array_);
+		delete[] tmp;
+		count_ = obj.count_;
+		array_size_ = obj.array_size_;
+   
     }
     return *this;
 }
