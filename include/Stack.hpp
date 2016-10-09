@@ -74,10 +74,10 @@ void stack<T>::push(T const &obj) {
 			T * temp = New_n_copy(array_size_* MULTIPLIER, count_, array_);
 			delete[] array_;
 			array_ = temp;
+			array_size_ *= MULTIPLIER;	
 		}
 	}
 	array_[count_] = obj;
-	array_size_ *= MULTIPLIER;
 	count_++;
 }
 
