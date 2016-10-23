@@ -90,7 +90,7 @@ void stack<T>::pop() {
 		throw("the stack is empty");
 	}
 	--count_;
-}
+} 
 
 template <typename T>
 const T& stack<T>::top() {
